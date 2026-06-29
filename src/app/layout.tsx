@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Amiri, Cairo } from "next/font/google";
+import { AppShell } from "@/components/layout/AppShell";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const sans = Cairo({
+  variable: "--font-sans",
+  subsets: ["latin", "arabic"],
+  weight: ["400", "500", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const display = Amiri({
+  variable: "--font-display",
+  subsets: ["latin", "arabic"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Edu Platform",
-  description: "Student learning dashboard",
+  title: "Daam | Plateforme d’apprentissage guidée",
+  description:
+    "Une plateforme éducative soignée avec tests de placement, parcours de leçons structurés, quiz et outils d’administration.",
 };
 
 export default function RootLayout({
@@ -23,11 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="fr" dir="ltr" suppressHydrationWarning className={`${sans.variable} ${display.variable} h-full`}>
+      <body className="min-h-full antialiased">
+        <AppShell>{children}</AppShell>
+      </body>
     </html>
   );
 }
