@@ -97,6 +97,10 @@ export default function HomePage() {
             </ul>
           </div>
         </div>
+
+        <footer style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+          <p>© {new Date().getFullYear()} {t.common.copyright}. {t.common.allRightsReserved}.</p>
+        </footer>
       </section>
     </main>
   );

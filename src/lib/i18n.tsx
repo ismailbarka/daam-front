@@ -95,6 +95,9 @@ type Messages = {
     unlockedLabel: string;
     lockedLabel: string;
     watchVideo: string;
+    watchVideoOnYouTube: string;
+    copyright: string;
+    allRightsReserved: string;
     lessonNotFound: string;
     returnToList: string;
     greatWork: string;
@@ -292,6 +295,9 @@ const messages: Record<Locale, Messages> = {
       unlockedLabel: "Débloqué",
       lockedLabel: "Verrouillé",
       watchVideo: "Voir la vidéo",
+      watchVideoOnYouTube: "Regarder sur YouTube",
+      copyright: "Daam Éducation",
+      allRightsReserved: "Tous droits réservés",
       lessonNotFound: "Leçon introuvable",
       returnToList: "Retourner à la liste",
       greatWork: "Bravo",
@@ -494,6 +500,9 @@ const messages: Record<Locale, Messages> = {
       unlockedLabel: "مفتوح",
       lockedLabel: "مغلق",
       watchVideo: "مشاهدة الفيديو",
+      watchVideoOnYouTube: "شاهد على YouTube",
+      copyright: "تعليم دام",
+      allRightsReserved: "جميع الحقوق محفوظة",
       lessonNotFound: "الدرس غير موجود",
       returnToList: "العودة إلى القائمة",
       greatWork: "عمل رائع",
