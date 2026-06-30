@@ -209,6 +209,10 @@ const messages: Record<Locale, Messages> = {
     brandTagline: "Apprenez à votre niveau",
     switchLabel: "Langue",
     home: {
+      videoEyebrow: "Comment ça marche",
+      videoTitle: "Comment ça marche",
+      videoLead: "Comment ça marche",
+      videoCta: "Comment ça marche",
       eyebrow: "Daam Education",
       title: "Une plateforme scolaire qui ressemble à un vrai produit, pas à un simple prototype.",
       lead:

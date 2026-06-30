@@ -38,8 +38,8 @@ export function AuthForm({ initialMode = "login", switchHref, backHref = "/" }: 
       <section className="auth-shell">
         <FadeIn>
           <div className="auth-hero">
-            <span className="auth-hero__badge">{isLogin ? t.auth.loginEyebrow : t.auth.signupEyebrow}</span>
-            <p className="eyebrow">{locale === "fr" ? "Apprentissage personnalisé" : "تعلم مخصص"}</p>
+            {/* <span className="auth-hero__badge">{isLogin ? t.auth.loginEyebrow : t.auth.signupEyebrow}</span> */}
+            {/* <p className="eyebrow">{locale === "fr" ? "Apprentissage personnalisé" : "تعلم مخصص"}</p> */}
             <h1>{isLogin ? t.auth.loginTitle : t.auth.signupTitle}</h1>
             <p className="auth-hero__copy">{isLogin ? t.auth.loginCopy : t.auth.signupCopy}</p>
             <div className="auth-hero__stats">
@@ -66,11 +66,13 @@ export function AuthForm({ initialMode = "login", switchHref, backHref = "/" }: 
 
         <FadeIn delay={120}>
           <form className="auth-card" onSubmit={handleSubmit}>
-            <div className="auth-tabs" aria-hidden="true">
-              <span className="auth-tabs__label is-active">{isLogin ? t.nav.signIn : t.nav.getStarted}</span>
-              <span className="auth-tabs__label">{isLogin ? t.auth.joinClassroom : t.auth.securePortal}</span>
-              <span className="auth-tabs__indicator" data-mode={authMode} aria-hidden="true" />
+          <div className="auth-tabs" aria-hidden="true">
+            <div className="bg-primary w-full flex justify-center items-center p-2">
+              {/* <span className="auth-tabs__label is-active text-white">
+                {isLogin ? t.nav.signIn : t.nav.getStarted}
+              </span> */}
             </div>
+          </div>
 
             <div className="auth-card__body">
               <div className="auth-card__intro">
@@ -122,9 +124,9 @@ export function AuthForm({ initialMode = "login", switchHref, backHref = "/" }: 
           </form>
         </FadeIn>
 
-        <p className="auth-back">
+        {/* <p className="auth-back">
           <Link href={backHref}>{t.auth.backHome}</Link>
-        </p>
+        </p> */}
       </section>
     </PageTransition>
   );

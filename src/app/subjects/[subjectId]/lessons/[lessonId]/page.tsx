@@ -12,6 +12,31 @@ import { LoadingOverlay } from "@/components/layout/LoadingOverlay";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { QuizPanel } from "@/components/quiz/QuizPanel";
 
+function getYoutubeEmbedUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    let videoId: string | null = null;
+
+    if (parsed.hostname.includes("youtu.be")) {
+      videoId = parsed.pathname.slice(1);
+    } else if (parsed.hostname.includes("youtube.com")) {
+      if (parsed.pathname === "/watch") {
+        videoId = parsed.searchParams.get("v");
+      } else if (parsed.pathname.startsWith("/embed/")) {
+        videoId = parsed.pathname.split("/embed/")[1];
+      } else if (parsed.pathname.startsWith("/shorts/")) {
+        videoId = parsed.pathname.split("/shorts/")[1];
+      }
+    }
+
+    if (!videoId) return null;
+    videoId = videoId.split("&")[0].split("?")[0];
+    return `https://www.youtube.com/embed/${videoId}`;
+  } catch {
+    return null;
+  }
+}
+
 export default function LessonDetailPage() {
   const params = useParams<{ subjectId: string; lessonId: string }>();
   const subjectId = Number(params.subjectId);
@@ -75,6 +100,7 @@ export default function LessonDetailPage() {
   const previousLesson = lessonIndex > 0 ? orderedLessons[lessonIndex - 1] : null;
   const result = lesson ? quizResults[lesson.id] : undefined;
   const passed = lesson?.status === "completed" || Boolean(result?.passed);
+  const embedUrl = lesson?.youtubeUrl ? getYoutubeEmbedUrl(lesson.youtubeUrl) : null;
 
   async function submitQuiz() {
     if (!lesson) return;
@@ -178,9 +204,20 @@ export default function LessonDetailPage() {
               {lesson.description ? <p className="muted">{lesson.description}</p> : null}
 
               {lesson.youtubeUrl ? (
-                <a className="video-chip" href={lesson.youtubeUrl} target="_blank" rel="noreferrer">
-                  <span aria-hidden="true">▶</span> {t.common.watchVideo}
-                </a>
+                embedUrl ? (
+                  <div className="video-embed">
+                    <iframe
+                      src={embedUrl}
+                      title={lesson.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <a className="video-chip" href={lesson.youtubeUrl} target="_blank" rel="noreferrer">
+                    <span aria-hidden="true">▶</span> {t.common.watchVideo}
+                  </a>
+                )
               ) : null}
 
               {lesson.status === "locked" ? (

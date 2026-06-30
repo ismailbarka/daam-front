@@ -90,9 +90,9 @@ export function AppHeader() {
           </nav>
         ) : isPublicPage ? (
           <nav className="site-nav site-nav--public" aria-label="Public">
-            <Link href="/" className={`site-nav__link ${pathname === "/" ? "is-active" : ""}`}>
+            {/* <Link href="/" className={`site-nav__link ${pathname === "/" ? "is-active" : ""}`}>
               {t.nav.home}
-            </Link>
+            </Link> */}
           </nav>
         ) : null}
 
@@ -115,16 +115,14 @@ export function AppHeader() {
                 {t.nav.signOut}
               </button>
             </>
-          ) : isAuthPage ? (
-            <>
-              <Link href="/" className="btn btn--ghost">
-                {t.nav.home}
-              </Link>
-              <Link href={pathname === "/login" ? "/signup" : "/login"} className="btn btn--primary">
-                {pathname === "/login" ? t.nav.getStarted : t.nav.signIn}
-              </Link>
-            </>
-          ) : (
+) : isAuthPage ? (
+  <Link
+    href={pathname === "/login" ? "/signup" : "/login"}
+    className="btn btn--primary"
+  >
+    {pathname === "/login" ? t.nav.getStarted : t.nav.signIn}
+  </Link>
+) : (
             <>
               <Link href="/login" className="btn btn--ghost">
                 {t.nav.signIn}

@@ -1,7 +1,50 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useLocale } from "@/lib/i18n";
+
+// Wraps any section in a fade/rise-in-on-scroll animation.
+function Reveal({
+  children,
+  delay = 0,
+  as: Tag = "div",
+}: {
+  children: ReactNode;
+  delay?: number;
+  as?: keyof JSX.IntrinsicElements;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Tag
+      ref={ref as never}
+      className={`reveal ${visible ? "is-visible" : ""}`}
+      style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
+    >
+      {children}
+    </Tag>
+  );
+}
 
 export default function HomePage() {
   const { t } = useLocale();
@@ -64,42 +107,97 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="section-block">
-          <div className="section-heading">
-            <p className="eyebrow">{t.home.builtFor}</p>
-            <h2>{t.home.builtTitle}</h2>
+        {/* --- Video / how-it-works section --- */}
+        <Reveal as="section">
+          <div className="section-block">
+            <div className="video-section">
+              <div className="video-section__copy">
+                <p className="eyebrow">{t.home.videoEyebrow}</p>
+                <h2>{t.home.videoTitle}</h2>
+                <p>{t.home.videoLead}</p>
+                {/* <a
+                  href="https://www.youtube.com/@YOUR_CHANNEL"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="video-chip"
+                >
+                  ▶ {t.home.videoCta}
+                </a> */}
+              </div>
+              <div className="video-section__media">
+                <div className="video-embed">
+                <iframe
+  src="https://www.youtube.com/embed/QlgUDKR0_18"
+  title={t.home.videoTitle}
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+  loading="lazy"
+/>
+                </div>
+              </div>
+            </div>
           </div>
+        </Reveal>
 
-          <div className="landing__cards">
-            {t.home.builtCards.map((copy, index) => (
-              <article className="feature-card" key={copy}>
-                <span className="feature-card__index">0{index + 1}</span>
-                <h2>{t.home.heroSteps[index]}</h2>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
+        <Reveal as="section">
+          <div className="section-block">
+            <div className="section-heading">
+              <p className="eyebrow">{t.home.builtFor}</p>
+              <h2>{t.home.builtTitle}</h2>
+            </div>
 
-        <div className="section-block section-block--split">
-          <div className="quote-card">
-            <p className="eyebrow">{t.home.teacherEyebrow}</p>
-            <h2>{t.home.teacherTitle}</h2>
-            <p>{t.home.teacherCopy}</p>
-          </div>
-
-          <div className="note-card">
-            <p className="eyebrow">{t.home.whatFeelsBetter}</p>
-            <ul>
-              {t.home.betterItems.map((item) => (
-                <li key={item}>{item}</li>
+            <div className="landing__cards">
+              {t.home.builtCards.map((copy, index) => (
+                <div className="landing__card p-4" key={copy}>
+                <Reveal delay={index * 90}>
+                  <article className="feature-card">
+                    <span className="feature-card__index">0{index + 1}</span>
+                    <h2>{t.home.heroSteps[index]}</h2>
+                    <p>{copy}</p>
+                  </article>
+                </Reveal>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
-        </div>
+        </Reveal>
 
-        <footer style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border)', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-          <p>© {new Date().getFullYear()} {t.common.copyright}. {t.common.allRightsReserved}.</p>
+        <Reveal as="section">
+          <div className="section-block section-block--split">
+            <Reveal>
+              <div className="quote-card">
+                <p className="eyebrow">{t.home.teacherEyebrow}</p>
+                <h2>{t.home.teacherTitle}</h2>
+                <p>{t.home.teacherCopy}</p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <div className="note-card">
+                <p className="eyebrow">{t.home.whatFeelsBetter}</p>
+                <ul>
+                  {t.home.betterItems.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </Reveal>
+
+        <footer
+          style={{
+            marginTop: "48px",
+            paddingTop: "24px",
+            borderTop: "1px solid var(--border)",
+            textAlign: "center",
+            color: "var(--text-muted)",
+            fontSize: "0.85rem",
+          }}
+        >
+          <p>
+            © {new Date().getFullYear()} {t.common.copyright}. {t.common.allRightsReserved}.
+          </p>
         </footer>
       </section>
     </main>
