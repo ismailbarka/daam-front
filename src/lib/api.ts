@@ -1,4 +1,4 @@
-export const API_URL = "https://edu-platform-backend-one.vercel.app";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://edu-platform-backend-one.vercel.app";
 
 export function getErrorMessage(error: unknown) {
   if (error instanceof Error) return error.message;

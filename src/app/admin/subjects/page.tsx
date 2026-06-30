@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useLocale } from "@/lib/i18n";
+import { API_URL } from "@/lib/api";
 import { getErrorMessage } from "@/lib/api";
 import type { Subject } from "@/lib/types";
 import { InlineLoader } from "@/components/layout/LoadingOverlay";
@@ -18,7 +19,7 @@ export default function AdminSubjectsPage() {
   const loadSubjects = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("https://edu-platform-backend-one.vercel.app/subjects", {
+      const response = await fetch(`${API_URL}/subjects`, {
         headers: authHeaders,
       });
       const data = await response.json().catch(() => null);
@@ -42,7 +43,7 @@ export default function AdminSubjectsPage() {
     setMessage("");
 
     try {
-      const response = await fetch("https://edu-platform-backend-one.vercel.app/subjects", {
+      const response = await fetch(`${API_URL}/subjects`, {
         method: "POST",
         headers: authHeaders,
         body: JSON.stringify({ name: subjectName }),
@@ -64,7 +65,7 @@ export default function AdminSubjectsPage() {
     setMessage("");
 
     try {
-      const response = await fetch(`https://edu-platform-backend-one.vercel.app/subjects/${subjectId}`, {
+      const response = await fetch(`${API_URL}/subjects/${subjectId}`, {
         method: "DELETE",
         headers: authHeaders,
       });

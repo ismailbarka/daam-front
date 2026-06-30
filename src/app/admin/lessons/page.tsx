@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useLocale } from "@/lib/i18n";
+import { API_URL } from "@/lib/api";
 import { cleanPayload, getErrorMessage } from "@/lib/api";
 import type { AnswerOption, Lesson, QuizQuestion, Subject } from "@/lib/types";
 import { InlineLoader } from "@/components/layout/LoadingOverlay";
@@ -36,8 +37,8 @@ export default function AdminLessonsPage() {
     setIsLoading(true);
     try {
       const [subjectResponse, lessonResponse] = await Promise.all([
-        fetch("https://edu-platform-backend-one.vercel.app/subjects", { headers: authHeaders }),
-        fetch("https://edu-platform-backend-one.vercel.app/lessons", { headers: authHeaders }),
+        fetch(`${API_URL}/subjects`, { headers: authHeaders }),
+        fetch(`${API_URL}/lessons`, { headers: authHeaders }),
       ]);
       const subjectData = await subjectResponse.json().catch(() => null);
       const lessonData = await lessonResponse.json().catch(() => null);
@@ -70,7 +71,7 @@ export default function AdminLessonsPage() {
     try {
       if (!lessonForm.subjectId) throw new Error(t.admin.chooseSubject);
 
-      const response = await fetch("https://edu-platform-backend-one.vercel.app/lessons", {
+      const response = await fetch(`${API_URL}/lessons`, {
         method: "POST",
         headers: authHeaders,
         body: JSON.stringify(
@@ -109,7 +110,7 @@ export default function AdminLessonsPage() {
     setMessage("");
 
     try {
-      const response = await fetch(`https://edu-platform-backend-one.vercel.app/lessons/${lessonId}`, {
+      const response = await fetch(`${API_URL}/lessons/${lessonId}`, {
         method: "DELETE",
         headers: authHeaders,
       });
@@ -132,7 +133,7 @@ export default function AdminLessonsPage() {
     try {
       if (!quizForm.lessonId) throw new Error("Choose a lesson");
 
-      const response = await fetch("https://edu-platform-backend-one.vercel.app/quiz/questions", {
+      const response = await fetch(`${API_URL}/quiz/questions`, {
         method: "POST",
         headers: authHeaders,
         body: JSON.stringify({
@@ -171,7 +172,7 @@ export default function AdminLessonsPage() {
     setMessage("");
 
     try {
-      const response = await fetch(`https://edu-platform-backend-one.vercel.app/quiz/questions/${questionId}`, {
+      const response = await fetch(`${API_URL}/quiz/questions/${questionId}`, {
         method: "DELETE",
         headers: authHeaders,
       });

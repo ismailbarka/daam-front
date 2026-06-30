@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { useLocale } from "@/lib/i18n";
-import { getErrorMessage } from "@/lib/api";
+import { API_URL, getErrorMessage } from "@/lib/api";
 import type { Subject } from "@/lib/types";
 import { RequireAuth } from "@/components/auth/RequireAuth";
 import { LoadingOverlay } from "@/components/layout/LoadingOverlay";
@@ -27,7 +27,7 @@ export default function SubjectsContent() {
       setMessage("");
 
       try {
-        const response = await fetch("https://edu-platform-backend-one.vercel.app/subjects", {
+        const response = await fetch(`${API_URL}/subjects`, {
           headers: authHeaders.Authorization ? authHeaders : { Authorization: `Bearer ${token}` },
         });
         const data = await response.json().catch(() => null);

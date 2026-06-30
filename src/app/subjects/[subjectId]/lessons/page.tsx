@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { useLocale } from "@/lib/i18n";
+import { API_URL } from "@/lib/api";
 import { getErrorMessage } from "@/lib/api";
 import type { Lesson, Subject } from "@/lib/types";
 import { RequireAuth } from "@/components/auth/RequireAuth";
@@ -27,8 +28,8 @@ export default function SubjectLessonsIndexPage() {
 
       try {
         const [subjectsResponse, lessonsResponse] = await Promise.all([
-          fetch("https://edu-platform-backend-one.vercel.app/subjects", { headers: authHeaders }),
-          fetch(`https://edu-platform-backend-one.vercel.app/lessons?subjectId=${subjectId}`, {
+          fetch(`${API_URL}/subjects`, { headers: authHeaders }),
+          fetch(`${API_URL}/lessons?subjectId=${subjectId}`, {
             headers: authHeaders,
           }),
         ]);

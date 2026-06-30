@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useLocale } from "@/lib/i18n";
+import { API_URL } from "@/lib/api";
 import { getErrorMessage } from "@/lib/api";
 import type { PlacementDraftQuestion, PlacementTest, Subject } from "@/lib/types";
 import { InlineLoader } from "@/components/layout/LoadingOverlay";
@@ -29,8 +30,8 @@ export default function AdminPlacementPage() {
     setIsLoading(true);
     try {
       const [subjectResponse, placementResponse] = await Promise.all([
-        fetch("https://edu-platform-backend-one.vercel.app/subjects", { headers: authHeaders }),
-        fetch("https://edu-platform-backend-one.vercel.app/placement-tests", { headers: authHeaders }),
+        fetch(`${API_URL}/subjects`, { headers: authHeaders }),
+        fetch(`${API_URL}/placement-tests`, { headers: authHeaders }),
       ]);
       const subjectData = await subjectResponse.json().catch(() => null);
       const placementData = await placementResponse.json().catch(() => null);
@@ -84,7 +85,7 @@ export default function AdminPlacementPage() {
         };
       });
 
-      const response = await fetch("https://edu-platform-backend-one.vercel.app/placement-tests", {
+      const response = await fetch(`${API_URL}/placement-tests`, {
         method: "POST",
         headers: authHeaders,
         body: JSON.stringify({
@@ -113,7 +114,7 @@ export default function AdminPlacementPage() {
     setMessage("");
 
     try {
-      const response = await fetch(`https://edu-platform-backend-one.vercel.app/placement-tests/${testId}`, {
+      const response = await fetch(`${API_URL}/placement-tests/${testId}`, {
         method: "DELETE",
         headers: authHeaders,
       });

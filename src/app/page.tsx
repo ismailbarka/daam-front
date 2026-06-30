@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type JSX, type ReactNode } from "react";
 import { useLocale } from "@/lib/i18n";
 
 // Wraps any section in a fade/rise-in-on-scroll animation.
@@ -12,7 +12,7 @@ function Reveal({
 }: {
   children: ReactNode;
   delay?: number;
-  as?: keyof JSX.IntrinsicElements;
+  as?: "div" | "section";
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -39,7 +39,7 @@ function Reveal({
     <Tag
       ref={ref as never}
       className={`reveal ${visible ? "is-visible" : ""}`}
-      style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
+      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       {children}
     </Tag>
@@ -127,12 +127,12 @@ export default function HomePage() {
               <div className="video-section__media">
                 <div className="video-embed">
                 <iframe
-  src="https://www.youtube.com/embed/QlgUDKR0_18"
-  title={t.home.videoTitle}
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-  loading="lazy"
-/>
+                  src="https://www.youtube.com/embed/QlgUDKR0_18"
+                  title={t.home.videoTitle}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                />
                 </div>
               </div>
             </div>

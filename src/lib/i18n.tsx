@@ -21,6 +21,10 @@ type Messages = {
   brandTagline: string;
   switchLabel: string;
   home: {
+    videoEyebrow: string;
+    videoTitle: string;
+    videoLead: string;
+    videoCta: string;
     eyebrow: string;
     title: string;
     lead: string;
@@ -149,6 +153,9 @@ type Messages = {
     noPlacementTests: string;
     submitPlacementTest: string;
     passSummary: string;
+    videoEyebrow: string;   // NEW
+    videoTitle: string;     // NEW
+    videoLead: string;      // NEW
   };
   admin: {
     title: string;
@@ -210,9 +217,9 @@ const messages: Record<Locale, Messages> = {
     switchLabel: "Langue",
     home: {
       videoEyebrow: "Comment ça marche",
-      videoTitle: "Comment ça marche",
-      videoLead: "Comment ça marche",
-      videoCta: "Comment ça marche",
+      videoTitle: "Découvrez la plateforme",
+      videoLead: "Regardez cette vidéo pour comprendre comment fonctionnent les tests de placement et les leçons.",
+      videoCta: "Voir la vidéo",
       eyebrow: "Daam Education",
       title: "Une plateforme scolaire qui ressemble à un vrai produit, pas à un simple prototype.",
       lead:
@@ -353,12 +360,15 @@ const messages: Record<Locale, Messages> = {
     },
     placement: {
       title: "Test de placement",
-      lead:
-        "Répondez à quelques questions pour que nous puissions vous placer au bon niveau dans chaque matière.",
+      lead: "Répondez à quelques questions pour que nous puissions vous placer au bon niveau dans chaque matière.",
       submitAssessment: "Envoyer le test",
       noPlacementTests: "Aucun test de placement disponible pour le moment.",
       submitPlacementTest: "Envoyer le test de placement",
       passSummary: "Le placement est terminé.",
+      // NEW FRENCH KEYS
+      videoEyebrow: "Avant de commencer",
+      videoTitle: "Comment fonctionne le test de placement",
+      videoLead: "Regardez cette présentation rapide pour comprendre comment les questions sont notées et ce qui vous attend.",
     },
     admin: {
       title: "Administration",
@@ -418,6 +428,10 @@ const messages: Record<Locale, Messages> = {
     brandTagline: "تعلّم حسب مستواك",
     switchLabel: "اللغة",
     home: {
+      videoEyebrow: "شوف كيفاش",
+      videoTitle: "اكتشف المنصة",
+      videoLead: "شاهد هذا الفيديو لتفهم كيف تعمل اختبارات المستوى والدروس.",
+      videoCta: "شاهد الفيديو",
       eyebrow: "تعليم دام",
       title: "منصة تعليمية تشبه تطبيقًا حقيقيًا، لا مجرد نموذج سريع.",
       lead:
@@ -558,12 +572,15 @@ const messages: Record<Locale, Messages> = {
     },
     placement: {
       title: "اختبار التحديد",
-      lead:
-        "أجب عن بعض الأسئلة حتى نضعك في المستوى المناسب داخل كل مادة.",
+      lead: "أجب عن بعض الأسئلة حتى نضعك في المستوى المناسب داخل كل مادة.",
       submitAssessment: "إرسال الاختبار",
       noPlacementTests: "لا توجد اختبارات تحديد في الوقت الحالي.",
       submitPlacementTest: "إرسال اختبار التحديد",
       passSummary: "اكتمل اختبار التحديد.",
+      // NEW ARABIC KEYS (already present but we keep them)
+      videoEyebrow: "قبل ما تبدا",
+      videoTitle: "كيفاش خدام اختبار المستوى",
+      videoLead: "شوف هاد الفيديو قبل ما تبدا باش تفهم كيفاش كنحسبو النقط.",
     },
     admin: {
       title: "الإدارة",

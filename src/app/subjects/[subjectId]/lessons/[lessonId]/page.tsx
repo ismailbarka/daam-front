@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { useLocale } from "@/lib/i18n";
+import { API_URL } from "@/lib/api";
 import { getErrorMessage } from "@/lib/api";
 import type { Lesson, QuizResult, Subject } from "@/lib/types";
 import { RequireAuth } from "@/components/auth/RequireAuth";
@@ -56,8 +57,8 @@ export default function LessonDetailPage() {
 
       try {
         const [subjectsResponse, lessonsResponse] = await Promise.all([
-          fetch("https://edu-platform-backend-one.vercel.app/subjects", { headers: authHeaders }),
-          fetch(`https://edu-platform-backend-one.vercel.app/lessons?subjectId=${subjectId}`, {
+          fetch(`${API_URL}/subjects`, { headers: authHeaders }),
+          fetch(`${API_URL}/lessons?subjectId=${subjectId}`, {
             headers: authHeaders,
           }),
         ]);
@@ -119,7 +120,7 @@ export default function LessonDetailPage() {
       }
 
       const response = await fetch(
-        `https://edu-platform-backend-one.vercel.app/lessons/${lesson.id}/quiz/submit`,
+        `${API_URL}/lessons/${lesson.id}/quiz/submit`,
         {
           method: "POST",
           headers: authHeaders,
@@ -136,7 +137,7 @@ export default function LessonDetailPage() {
       setQuizResults((current) => ({ ...current, [lesson.id]: data as QuizResult }));
 
       const updatedResponse = await fetch(
-        `https://edu-platform-backend-one.vercel.app/lessons?subjectId=${subjectId}`,
+        `${API_URL}/lessons?subjectId=${subjectId}`,
         { headers: authHeaders },
       );
       const updatedLessons = await updatedResponse.json().catch(() => null);
